@@ -15,33 +15,43 @@
     },
     "Zomes": [
         {
-            "Name": "entries",
-            "Description": "provide list of notary entries",
-            "CodeFile": "entries.js",
+            "Name": "notrization",
+            "Description": "provide list of notary for notrization",
+            "CodeFile": "notrization.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
             "Config": null,
             "Entries": [
                 {
-                    "Name": "entries",
+                    "Name": "notary_doc",
                     "DataFormat": "json",
-                    "Schema": "",
-                    "SchemaFile": "entries.json",
+                    "SchemaFile": "notary_doc.json",
                     "Sharing": "public"
-                },
-                {
-                  "Name":"entries_link",
-                  "DataFormat":"Links"
                 }
             ],
             "Functions": [
                 {
-                    "Name": "writeEntry",
+                    "Name": "createNotaryDoc",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "readEntry",
+                    "Name": "addNotaryDocToLocal",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "sendToBeSigned",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "respondToSignRequest",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "sendToBeNotrized",
                     "CallingType": "json",
                     "Exposure": "public"
                 }
