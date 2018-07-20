@@ -1,0 +1,51 @@
+{
+    "Version": 1,
+    "UUID": "03b3333f-8ac8-11e8-bda3-be83850397c6",
+    "Name": "notary",
+    "Properties": {
+        "description": "provides notary services",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "BasedOn": "",
+    "RequiresVersion": 26,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "RedundancyFactor": 0
+    },
+    "Zomes": [
+        {
+            "Name": "entries",
+            "Description": "provide list of notary entries",
+            "CodeFile": "entries.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "Config": null,
+            "Entries": [
+                {
+                    "Name": "entries",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "entries.json",
+                    "Sharing": "public"
+                },
+                {
+                  "Name":"entries_link",
+                  "DataFormat":"Links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "writeEntry",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "readEntry",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}

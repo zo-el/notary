@@ -1,0 +1,185 @@
+body {
+	margin: 0 auto;
+	line-height: 1.3em;
+	height: 100%;
+	background: radial-gradient(#0f1791, #090f70, #0a0d3c);
+	/* background: #4F4E68; */
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%; /* Prevent jump from scrollbar appearing on only some pages */
+	font-family: 'Kalam', cursive;
+}
+
+.app {
+	/* border: 10px gold double dashed; */
+	border-top: 5px inset rgba(0, 0, 0, 0.3);
+	padding: 15px;
+	height: 90vh;
+}
+
+.brand-logo {
+	margin-left: 20px;
+}
+
+.nav-item {
+	margin-right: 10px;
+}
+
+.list-entry-item {
+  cursor: pointer;
+	font-weight: bold;
+	margin: 20px 80px;
+}
+
+h6 {
+	line-height: 2.1;
+}
+
+.jumbotron {
+	color: black;
+	text-align: center;
+	padding: 20px 50px 50px 50px;
+	margin: 50px;
+}
+
+.title {
+	text-align: center;
+}
+
+.card-panel {
+	background: #e9e6c4;
+	border: 2px dashed white;
+}
+
+.journal-background {
+	margin: 5px;
+	background: #e9e6c4;
+}
+
+.dash-border {
+	width: 100%;
+	border-top: 2px dashed rgba(0, 0, 0, 0.3);
+	margin-top: 15px;
+}
+
+hr {
+	color: black;
+	height: .75px;
+}
+
+.book {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40.5rem;
+  height: 39.5rem;
+  perspective: 70rem;
+}
+.cover {
+  background-color: #36354e;
+  transform: rotateY(0deg);
+  width: 31.25rem;
+  height: 39.5rem;
+}
+.page {
+  top: 9.25rem;
+  left: 0.25rem;
+  background-color: #e9e6c4;
+  transform: rotateY(0deg);
+  width: 28rem;
+  height: 39rem;
+  text-align: right;
+  font-size: 8px;
+  color: #777;
+  font-family: monospace;
+}
+
+.page::before, .page::after {
+  display: block;
+  border-top: 1px dashed rgba(0, 0, 0, 0.3);
+  content: "";
+  padding-bottom: 1rem;
+}
+
+.cover, .page {
+  position: absolute;
+  padding: 1rem;
+  transform-origin: 100% 0;
+  border-radius: 5px 0 0 5px;
+  box-shadow: inset 3px 0px 20px rgba(0, 0, 0, 0.2),
+    0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+.cover.turn {
+  animation: bookCover 3s backwards;
+}
+.page.turn {
+  animation: bookOpen 3s backwards;
+}
+.page:nth-of-type(1) {
+  animation-delay: 0.05s;
+}
+.page:nth-of-type(2) {
+  animation-delay: 0.33s
+}
+.page:nth-of-type(3) {
+  animation-delay: 0.66s;
+}
+.page:nth-of-type(4) {
+  animation: bookOpen150deg 3s forwards;
+  animation-delay: 0.99s;
+}
+.page:nth-of-type(5) {
+  animation: bookOpen30deg 3s forwards;
+  animation-delay: 1.2s;
+}
+.page:nth-of-type(6) {
+  animation: bookOpen55deg 3s forwards;
+  animation-delay: 1.25s;
+}
+@keyframes bookOpen {
+  30% { z-index: 999 }
+  100% {  transform: rotateY(180deg);
+    z-index: 999;}
+}
+@keyframes bookCover {
+  30% { z-index: 999 }
+  100% {  transform: rotateY(180deg);
+    z-index: 1;}
+}
+@keyframes bookOpen150deg {
+  30% { z-index: 999 }
+  100% {  transform: rotateY(150deg);
+    z-index: 999;}
+}
+@keyframes bookOpen55deg {
+  30% { z-index: 999 }
+  100% {  transform: rotateY(55deg);
+    z-index: 999;}
+}
+@keyframes bookOpen30deg {
+  50% { z-index: 999 }
+  100% {  transform: rotateY(30deg);
+    z-index: 999;}
+}
+
+.page-stick {
+	transform: scale(3.1);
+}
+
+
+{/* <div className="book">
+	<span className="page turn"></span>
+	<span className="page turn"></span>
+	<span className="page turn"></span>
+	<span className="page turn"></span>
+	<span className="page turn"></span>
+	<span className="page turn"></span>
+	<span className="cover"></span>
+	<span className="page"></span>
+	<span className="cover turn"></span>
+</div> */}
