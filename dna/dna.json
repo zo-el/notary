@@ -26,12 +26,40 @@
                     "Name": "notary_doc",
                     "DataFormat": "json",
                     "SchemaFile": "notary_doc.json",
+                    "Sharing": "private"
+                },
+                {
+                    "Name": "preliminary_notary_doc",
+                    "DataFormat": "json",
+                    "SchemaFile": "notary_doc.json",
+                    "Sharing": "private"
+                },
+                {
+                    "Name": "signature",
+                    "DataFormat": "json",
                     "Sharing": "public"
+                },
+                {
+                    "Name": "notary_stamp",
+                    "DataFormat": "json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "signature_link",
+                    "DataFormat": "links"
+                },
+                {
+                    "Name": "notary_stamp_link",
+                    "DataFormat": "links"
                 }
             ],
             "Functions": [
                 {
                     "Name": "createNotaryDoc",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },{
+                    "Name": "getNotaryDoc",
                     "CallingType": "json",
                     "Exposure": "public"
                 },

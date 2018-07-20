@@ -1,0 +1,45 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "notary_base": {
+      "$id": "/properties/notary_base",
+      "type": "string",
+      "title": "The Notary_base Schema ",
+      "default": "",
+      "examples": [
+        "string"
+      ]
+    },
+    "notary_doc": {
+      "$id": "/properties/notary_doc",
+      "type": "object",
+      "properties": {
+        "list_of_signatories": {
+          "$id": "/properties/notary_doc/properties/list_of_signatories",
+          "type": "array"
+        },
+        "title": {
+          "$id": "/properties/notary_doc/properties/title",
+          "type": "string",
+          "title": "The Title Schema ",
+          "default": "",
+          "examples": [
+            "string"
+          ]
+        },
+        "document": {
+          "$id": "/properties/notary_doc/properties/document",
+          "type": "string",
+          "title": "The Document Schema ",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    }
+  }
+}

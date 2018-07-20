@@ -1,0 +1,32 @@
+{
+  "Tests": [{
+    "Convey": "add listener test here",
+    "Zome": "notrization",
+    "FnName": "createNotaryDoc",
+    "Input": {
+      "list_of_signatories": [
+        "JOEL___AULAHA"
+      ],
+      "title": "TEST !",
+      "document": "(DOC)",
+      "signatures": [
+        "Qasvrasxccvx",
+        "avr tvbwywertbqrtv5ercgrg"
+      ],
+      "notary": {
+        "name": "NO ONE",
+        "signature": "---"
+      }
+    },
+    "Output": "%h2%",
+    "Err": null,
+    "ErrMsg": "",
+    "Regexp": "",
+    "Time": 0,
+    "Wait": 0,
+    "Exposure": "",
+    "Raw": false,
+    "Repeat": 0,
+    "Benchmark": false
+  }]
+}

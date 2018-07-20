@@ -1,0 +1,18 @@
+{
+  "Tests": [{
+    "Convey": "add listener test here",
+    "Zome": "notrization",
+    "FnName": "getNotaryDoc",
+    "Input": "",
+    "Output": null,
+    "Err": null,
+    "ErrMsg": "",
+    "Regexp": "",
+    "Time": 5000,
+    "Wait": 0,
+    "Exposure": "",
+    "Raw": false,
+    "Repeat": 0,
+    "Benchmark": false
+  }]
+}
