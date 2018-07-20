@@ -28,11 +28,59 @@ function receive(from, message) {
   }
 }
 
-//TODO: use getEntity
+function sign(preliminary_hash) {
+  preliminary = get(preliminary_hash);
+
+  sig_hash = commit("signature", {
+    sig_name: App.Agent.String,
+    signature: sign(preliminary.notary_doc)
+  });
+
+  commit('signature_link', {
+    Links: [{
+      Base: preliminary.notary_base,
+      Link: sig_hash,
+      Tag: 'signature'
+    }]
+  });
+
+}
+
+//TODO TESTING required
+function reject(preliminary_hash) {
+  preliminary = get(preliminary_hash);
+  try {
+    status = getLinks(preliminary.notary_base, "status", {
+      Load: true
+    })
+
+  } catch (e) {
+
+    state_hash = commit('status_link', {
+      Links: [{
+        Base: preliminary.notary_base,
+        Link: status_hash,
+        Tag: 'status'
+      }]
+    });
+
+    return state_hash;
+  }
+
+  state_hash = update("status", {
+    state: "reject",
+    comment: ""
+  }, status[0].Hash);
+return state_hash;
+}
+
+
+//TODO: REFACTOR, use getEntity
 function getPreliminaryDoc() {
   var result = query({
     Return: {
-      Hashes: true
+      Hashes: true,
+      Entries: true
     },
     Constrain: {
       EntryTypes: ["preliminary_notary_doc"]
@@ -45,7 +93,8 @@ function getPreliminaryDoc() {
 function getMyNotaryDocs() {
   var result = query({
     Return: {
-      Hashes: true
+      Hashes: true,
+      Entries: true
     },
     Constrain: {
       EntryTypes: ["notary_doc"]
@@ -55,7 +104,6 @@ function getMyNotaryDocs() {
   return result;
 }
 
-function
 
 
 // -----------------------------------------------------------------
