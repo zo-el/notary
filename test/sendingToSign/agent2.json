@@ -1,0 +1,13 @@
+{
+  "Tests": [{
+      "Time": 0,
+      "Convey": "0. get Agent Key Hash",
+      "Zome": "notrization",
+      "FnName": "getKeyHash",
+      "Input": "",
+      "Output": "%key%",
+      "Err": null,
+      "ErrMsg": ""
+    }
+  ]
+}

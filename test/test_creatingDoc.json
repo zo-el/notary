@@ -1,0 +1,34 @@
+{
+  "Tests": [{
+      "Convey": "0. prepare a notry",
+      "Zome": "notrization",
+      "FnName": "createNotaryDoc",
+      "Input": {
+        "list_of_signatories": [
+          "User1.Key.Hash", "User2.Key.Hash"
+        ],
+        "title": "TEST 1",
+        "document": "(TEST-DOC-CONTENT)"
+      },
+      "Output": "%h%",
+      "Err": null,
+      "ErrMsg": ""
+    },
+    {
+      "Convey": "1. try getting all your notarys created",
+      "Zome": "notrization",
+      "FnName": "getMyNotaryDocs",
+      "Input": "",
+      "Output": [{
+        "Entry": {
+          "document": "(TEST-DOC-CONTENT)",
+          "list_of_signatories": ["User1.Key.Hash", "User2.Key.Hash"],
+          "title": "TEST 1"
+        },
+        "Hash": "QmbfzQ6NaNe8aobdbPB1yPvb9UeqehXH7WuUjP8a9qUZ9T"
+      }],
+      "Err": null,
+      "ErrMsg": ""
+    }
+  ]
+}

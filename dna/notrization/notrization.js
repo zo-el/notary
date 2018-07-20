@@ -6,8 +6,32 @@
 //  Exposed functions with custom logic https://developer.holochain.org/API_reference
 // -----------------------------------------------------------------
 
+function getKeyHash() {
+  debug(App.Key.Hash)
+  return App.Key.Hash;
+}
+
 function createNotaryDoc(notary_doc) {
   hash = commit("notary_doc", notary_doc);
+  sendToBeSigned(notary_doc);
+  return hash;
+}
+
+// Retreives notary_doc linked in my local chain
+function getMyNotaryDocs() {
+  var result = query({
+    Return: {
+      Hashes: true,
+      Entries: true
+    },
+    Constrain: {
+      EntryTypes: ["notary_doc"]
+    }
+  });
+  return result;
+}
+
+function sendToBeSigned(notary_doc) {
   (notary_doc.list_of_signatories).forEach(function(element) {
     send(element, {
       "type": "sign_request",
@@ -15,12 +39,13 @@ function createNotaryDoc(notary_doc) {
       "notary_base": hash
     });
   });
-  return hash;
 }
 
 function receive(from, message) {
+  debug("From: "+from+" message: "+JSON.stringify(message));
   if (message.type == "sign_request") {
     //copy for reference save on local
+
     commit("preliminary_notary_doc", {
       notary_doc: message.notary_doc,
       notary_base: message.notary_base
@@ -71,7 +96,7 @@ function reject(preliminary_hash) {
     state: "reject",
     comment: ""
   }, status[0].Hash);
-return state_hash;
+  return state_hash;
 }
 
 
@@ -89,20 +114,6 @@ function getPreliminaryDoc() {
   return result;
 }
 
-// Retreives notary_doc linked in my local chain
-function getMyNotaryDocs() {
-  var result = query({
-    Return: {
-      Hashes: true,
-      Entries: true
-    },
-    Constrain: {
-      EntryTypes: ["notary_doc"]
-    }
-  });
-
-  return result;
-}
 
 
 

@@ -54,24 +54,24 @@
                 }
             ],
             "Functions": [
-                {
+              {
+                  "Name": "getKeyHash",
+                  "CallingType": "string",
+                  "Exposure": "public"
+              },
+              {
                     "Name": "createNotaryDoc",
                     "CallingType": "json",
                     "Exposure": "public"
                 },{
-                    "Name": "getNotaryDoc",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "addNotaryDocToLocal",
+                    "Name": "getMyNotaryDocs",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
                     "Name": "sendToBeSigned",
                     "CallingType": "json",
-                    "Exposure": "public"
+                    "Exposure": "private"
                 },
                 {
                     "Name": "respondToSignRequest",
