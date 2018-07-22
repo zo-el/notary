@@ -1,5 +1,5 @@
 {
     "GossipInterval": 100,
-    "Duration": 5,
+    "Duration": 10,
     "Clone": null
 }

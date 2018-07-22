@@ -1,6 +1,6 @@
 {
   "Tests": [{
-      "Convey": "0. prepare a notry",
+      "Convey": "0. prepare a notary",
       "Zome": "notrization",
       "FnName": "createNotaryDoc",
       "Input": {
@@ -15,8 +15,8 @@
       "ErrMsg": ""
     },
     {
-      "Convey": "1. try getting all your notarys created",
-      "Zome": "notrization",
+      "Convey": "1. try getting all your created notaries",
+      "Zome": "notarization",
       "FnName": "getMyNotaryDocs",
       "Input": "",
       "Output": [{

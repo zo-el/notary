@@ -1,34 +1,44 @@
 {
   "Tests": [{
       "Time": 1000,
-      "Convey": "0. prepare a notry",
+      "Convey": "0. prepare a notary",
       "Zome": "notrization",
       "FnName": "createNotaryDoc",
       "Input": {
         "list_of_signatories": [
-          "QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY"
+          "QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY","QmUYjpLAdrX3ZU6kH5AVU7hZzRcZ561iDqwBgARiYVVsi5"
         ],
         "title": "TEST 1",
         "document": "(TEST-DOC-CONTENT)"
       },
-      "Output": "%h%",
+      "Output": "%h1%",
       "Err": null,
       "ErrMsg": ""
     },
     {
       "Time": 2000,
-      "Convey": "1. try getting all your notarys created",
+      "Convey": "1. try getting all your created notaries",
       "Zome": "notrization",
       "FnName": "getMyNotaryDocs",
       "Input": "",
       "Output": [{
         "Entry": {
           "document": "(TEST-DOC-CONTENT)",
-          "list_of_signatories": ["QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY"],
+          "list_of_signatories": ["QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY","QmUYjpLAdrX3ZU6kH5AVU7hZzRcZ561iDqwBgARiYVVsi5"],
           "title": "TEST 1"
         },
-        "Hash": "QmbcYNcj3JZ1b7NzPfUonFmhBc8y4ELrf3Sj9mfamyTRkM"
+        "Hash": "QmRHxSAxofb8DAYgxxMNcBsk3jsjiHEYJ4hCtzYLTPuV8P"
       }],
+      "Err": null,
+      "ErrMsg": ""
+    },
+    {
+      "Time":7000,
+      "Convey": "2. check Agent2 signature",
+      "Zome": "notrization",
+      "FnName": "checkSignatures",
+      "Input": "QmRHxSAxofb8DAYgxxMNcBsk3jsjiHEYJ4hCtzYLTPuV8P",
+      "Output": [true,true],
       "Err": null,
       "ErrMsg": ""
     }

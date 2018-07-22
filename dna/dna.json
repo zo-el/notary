@@ -1,89 +1,133 @@
 {
-    "Version": 1,
-    "UUID": "03b3333f-8ac8-11e8-bda3-be83850397c6",
-    "Name": "notary",
-    "Properties": {
-        "description": "provides notary services",
-        "language": "en"
+  "Version": 1,
+  "UUID": "03b3333f-8ac8-11e8-bda3-be83850397c6",
+  "Name": "notary",
+  "Properties": {
+    "description": "provides notary services",
+    "language": "en"
+  },
+  "PropertiesSchemaFile": "properties_schema.json",
+  "BasedOn": "",
+  "RequiresVersion": 26,
+  "DHTConfig": {
+    "HashType": "sha2-256",
+    "RedundancyFactor": 0
+  },
+  "Zomes": [{
+      "Name": "register",
+      "Description": "Initial registration of the agent",
+      "CodeFile": "register.js",
+      "RibosomeType": "js",
+      "BridgeFuncs": null,
+      "Config": null,
+      "Entries": [{
+        "Name": "public_key",
+        "DataFormat": "string",
+        "Sharing": "public"
+      }],
+      "Functions": [{
+        "Name": "register",
+        "CallingType": "string",
+        "Exposure": "public"
+      }]
     },
-    "PropertiesSchemaFile": "properties_schema.json",
-    "BasedOn": "",
-    "RequiresVersion": 26,
-    "DHTConfig": {
-        "HashType": "sha2-256",
-        "RedundancyFactor": 0
-    },
-    "Zomes": [
+    {
+      "Name": "notrization",
+      "Description": "provide list of notary for notrization",
+      "CodeFile": "notrization.js",
+      "RibosomeType": "js",
+      "BridgeFuncs": null,
+      "Config": null,
+      "Entries": [{
+          "Name": "notary_anchor",
+          "DataFormat": "string",
+          "Sharing": "public"
+        },
         {
-            "Name": "notrization",
-            "Description": "provide list of notary for notrization",
-            "CodeFile": "notrization.js",
-            "RibosomeType": "js",
-            "BridgeFuncs": null,
-            "Config": null,
-            "Entries": [
-                {
-                    "Name": "notary_doc",
-                    "DataFormat": "json",
-                    "SchemaFile": "notary_doc.json",
-                    "Sharing": "private"
-                },
-                {
-                    "Name": "preliminary_notary_doc",
-                    "DataFormat": "json",
-                    "SchemaFile": "notary_doc.json",
-                    "Sharing": "private"
-                },
-                {
-                    "Name": "signature",
-                    "DataFormat": "json",
-                    "Sharing": "public"
-                },
-                {
-                    "Name": "notary_stamp",
-                    "DataFormat": "json",
-                    "Sharing": "public"
-                },
-                {
-                    "Name": "signature_link",
-                    "DataFormat": "links"
-                },
-                {
-                    "Name": "notary_stamp_link",
-                    "DataFormat": "links"
-                }
-            ],
-            "Functions": [
-              {
-                  "Name": "getKeyHash",
-                  "CallingType": "string",
-                  "Exposure": "public"
-              },
-              {
-                    "Name": "createNotaryDoc",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },{
-                    "Name": "getMyNotaryDocs",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "sendToBeSigned",
-                    "CallingType": "json",
-                    "Exposure": "private"
-                },
-                {
-                    "Name": "respondToSignRequest",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "sendToBeNotrized",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                }
-            ]
+          "Name": "notary_doc",
+          "DataFormat": "json",
+          "SchemaFile": "notary_doc.json",
+          "Sharing": "private"
+        },
+        {
+          "Name": "preliminary_notary_doc",
+          "DataFormat": "json",
+          "SchemaFile": "notary_doc.json",
+          "Sharing": "private"
+        },
+        {
+          "Name": "signature",
+          "DataFormat": "json",
+          "Sharing": "public"
+        },
+        {
+          "Name": "notary_stamp",
+          "DataFormat": "json",
+          "Sharing": "public"
+        },
+        {
+          "Name": "signature_link",
+          "DataFormat": "links"
+        },
+        {
+          "Name": "notary_stamp_link",
+          "DataFormat": "links"
         }
-    ]
+      ],
+      "Functions": [{
+          "Name": "testSigning",
+          "CallingType": "string",
+          "Exposure": "public"
+        }, {
+          "Name": "getKeyHash",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "createNotaryDoc",
+          "CallingType": "json",
+          "Exposure": "public"
+        }, {
+          "Name": "getMyNotaryDocs",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "addToPreliminary",
+          "CallingType": "json",
+          "Exposure": "private"
+        },
+        {
+          "Name": "getPreliminaryDoc",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "approve",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "checkSignatures",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "sendToBeSigned",
+          "CallingType": "json",
+          "Exposure": "private"
+        },
+        {
+          "Name": "respondToSignRequest",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "sendToBeNotrized",
+          "CallingType": "json",
+          "Exposure": "public"
+        }
+      ]
+    }
+  ]
 }

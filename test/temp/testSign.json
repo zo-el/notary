@@ -1,0 +1,12 @@
+{
+  "Tests": [{
+      "Convey": "0. prepare a notary",
+      "Zome": "notrization",
+      "FnName": "testSigning",
+      "Input": "",
+      "Output": "%h%",
+      "Err": null,
+      "ErrMsg": ""
+    }
+  ]
+}

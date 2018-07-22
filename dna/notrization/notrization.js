@@ -13,7 +13,9 @@ function getKeyHash() {
 
 function createNotaryDoc(notary_doc) {
   hash = commit("notary_doc", notary_doc);
-  sendToBeSigned(notary_doc);
+  //create an anchors on the DHT for this DOC
+  anchor = commit("notary_anchor", hash);
+  sendToBeSigned(notary_doc, hash);
   return hash;
 }
 
@@ -31,7 +33,83 @@ function getMyNotaryDocs() {
   return result;
 }
 
-function sendToBeSigned(notary_doc) {
+//TODO: REFACTOR, use getEntity
+function getPreliminaryDoc() {
+  var result = query({
+    Return: {
+      Hashes: true,
+      Entries: true
+    },
+    Constrain: {
+      EntryTypes: ["preliminary_notary_doc"]
+    }
+  });
+  return result;
+}
+
+function approve(preliminary_hash) {
+  preliminary = get(preliminary_hash, {
+    Local: true
+  });
+  debug("Approving this Doc" + preliminary)
+
+  //debug("Signature: "+sign(JSON.stringify(preliminary.notary_doc)));
+
+  sig_hash = commit("signature", {
+    sig_name: App.Agent.String,
+    signature: sign(JSON.stringify(preliminary.notary_doc))
+  });
+
+  link_hash = commit('signature_link', {
+    Links: [{
+      Base: makeHash("notary_anchor", preliminary.notary_base),
+      Link: sig_hash,
+      Tag: 'sig'
+    }]
+  });
+  return sig_hash;
+}
+
+function checkSignatures(notary_hash) {
+  data = get(notary_hash, {
+    Local: true
+  });
+  //debug("DATA :: " + JSON.stringify(data));
+  signature_list = getSignatures(makeHash("notary_anchor", notary_hash));
+  return verifySign(signature_list, data);
+}
+
+function getSignatures(notary_anchor) {
+  return getLinks(notary_anchor, "sig", {
+    Load: true
+  });
+}
+
+function verifySign(signature_list, data) {
+  return_verify_info = [];
+  signature_list.forEach(function(element) {
+    //debug("SIGNATURE: " + element.Entry.signature + "DATA: " + data + "PUBLIC KEY: " + element.Source);
+    public_key = JSON.stringify(get(element.Source));
+    debug("public_key: " + public_key);
+    sliced_public_key = public_key.slice(45, 94);
+    debug("Sliced Public Key: " + sliced_public_key);
+    result = verifySignature(element.Entry.signature, JSON.stringify(data), sliced_public_key);
+    return_verify_info.push(result);
+  });
+  return return_verify_info;
+}
+
+
+/****** NON Exposed ******/
+function receive(from, message) {
+  debug("Receiving From: " + from + " message: " + JSON.stringify(message));
+  if (message.type == "sign_request") {
+    //copy for reference save on local
+    addToPreliminary(message);
+  }
+}
+
+function sendToBeSigned(notary_doc, hash) {
   (notary_doc.list_of_signatories).forEach(function(element) {
     send(element, {
       "type": "sign_request",
@@ -41,35 +119,14 @@ function sendToBeSigned(notary_doc) {
   });
 }
 
-function receive(from, message) {
-  debug("From: "+from+" message: "+JSON.stringify(message));
-  if (message.type == "sign_request") {
-    //copy for reference save on local
-
-    commit("preliminary_notary_doc", {
-      notary_doc: message.notary_doc,
-      notary_base: message.notary_base
-    });
-  }
+function addToPreliminary(message) {
+  commit("preliminary_notary_doc", {
+    notary_doc: message.notary_doc,
+    notary_base: message.notary_base
+  });
 }
 
-function sign(preliminary_hash) {
-  preliminary = get(preliminary_hash);
 
-  sig_hash = commit("signature", {
-    sig_name: App.Agent.String,
-    signature: sign(preliminary.notary_doc)
-  });
-
-  commit('signature_link', {
-    Links: [{
-      Base: preliminary.notary_base,
-      Link: sig_hash,
-      Tag: 'signature'
-    }]
-  });
-
-}
 
 //TODO TESTING required
 function reject(preliminary_hash) {
@@ -100,19 +157,7 @@ function reject(preliminary_hash) {
 }
 
 
-//TODO: REFACTOR, use getEntity
-function getPreliminaryDoc() {
-  var result = query({
-    Return: {
-      Hashes: true,
-      Entries: true
-    },
-    Constrain: {
-      EntryTypes: ["preliminary_notary_doc"]
-    }
-  });
-  return result;
-}
+
 
 
 
@@ -138,9 +183,13 @@ function validate(entryName, entry, header, pkg, sources) {
   switch (entryName) {
     case "notary_doc":
       return true;
-    case "notary_link":
+    case "notary_anchor":
       return true;
-    case "anchor":
+    case "preliminary_notary_doc":
+      return true;
+    case "signature":
+      return true;
+    case "signature_link":
       return true;
     default:
       return false;
@@ -148,14 +197,8 @@ function validate(entryName, entry, header, pkg, sources) {
 }
 
 function validatePut(entryName, entry, header, pkg, sources) {
-  switch (entryName) {
-    case "anchor":
-      return true;
-    default:
-      return false;
-  }
+  return validate(entryName, entry, header, pkg, sources);
 
-  return false;
 }
 
 function validateMod(entryName, entry, header, replaces, pkg, sources) {
@@ -168,7 +211,7 @@ function validateDel(entryName, hash, pkg, sources) {
 
 function validateLink(entryName, baseHash, links, pkg, sources) {
   switch (entryName) {
-    case "notary_link":
+    case "signature_link":
       return true;
     default:
       return false;
