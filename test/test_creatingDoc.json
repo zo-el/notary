@@ -15,8 +15,8 @@
       "ErrMsg": ""
     },
     {
-      "Convey": "1. try getting all your created notaries",
-      "Zome": "notarization",
+      "Convey": "1. try getting all your notaries ever created",
+      "Zome": "notrization",
       "FnName": "getMyNotaryDocs",
       "Input": "",
       "Output": [{
