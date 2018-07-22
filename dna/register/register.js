@@ -1,5 +1,4 @@
-function register(){
-}
+function register() {}
 
 // -----------------------------------------------------------------
 //  The Genesis Function https://developer.holochain.org/genesis

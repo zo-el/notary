@@ -20,7 +20,7 @@
           "notary_base": "QmRHxSAxofb8DAYgxxMNcBsk3jsjiHEYJ4hCtzYLTPuV8P",
           "notary_doc": {
             "document": "(TEST-DOC-CONTENT)",
-            "list_of_signatories": ["QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY","QmUYjpLAdrX3ZU6kH5AVU7hZzRcZ561iDqwBgARiYVVsi5"],
+            "list_of_signatories": ["QmYVtiFteBRypfqR49hbhiABwkdmTTqm168sCHh4MKFRqY", "QmUYjpLAdrX3ZU6kH5AVU7hZzRcZ561iDqwBgARiYVVsi5"],
             "title": "TEST 1"
           }
         },

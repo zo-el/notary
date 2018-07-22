@@ -93,6 +93,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "sendToBeSigned",
+          "CallingType": "json",
+          "Exposure": "private"
+        },
+        {
           "Name": "addToPreliminary",
           "CallingType": "json",
           "Exposure": "private"
@@ -111,11 +116,6 @@
           "Name": "checkSignatures",
           "CallingType": "json",
           "Exposure": "public"
-        },
-        {
-          "Name": "sendToBeSigned",
-          "CallingType": "json",
-          "Exposure": "private"
         },
         {
           "Name": "respondToSignRequest",
